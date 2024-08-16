@@ -4,16 +4,18 @@ import {
   SignUpCommand,
   ConfirmSignUpCommand
 } from '@aws-sdk/client-cognito-identity-provider';
-import config from './config.json';
+
+const region = import.meta.env.VITE_REGION;
+const clientId = import.meta.env.VITE_CLIENT_ID;
 
 export const cognitoClient = new CognitoIdentityProviderClient({
-  region: config.region
+  region: region
 });
 
 export const signIn = async (username, password) => {
   const params = {
     AuthFlow: 'USER_PASSWORD_AUTH',
-    ClientId: config.clientId,
+    ClientId: clientId,
     AuthParameters: {
       USERNAME: username,
       PASSWORD: password
@@ -36,7 +38,7 @@ export const signIn = async (username, password) => {
 
 export const signUp = async (email, password, name) => {
   const params = {
-    ClientId: config.clientId,
+    ClientId: clientId,
     Username: email,
     Password: password,
     UserAttributes: [
@@ -63,7 +65,7 @@ export const signUp = async (email, password, name) => {
 
 export const confirmSignUp = async (username, code) => {
   const params = {
-    ClientId: config.clientId,
+    ClientId: clientId,
     Username: username,
     ConfirmationCode: code
   };

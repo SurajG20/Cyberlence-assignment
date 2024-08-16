@@ -10,15 +10,19 @@ const Home = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true); 
   const [selectedItem, setSelectedItem] = useState(null);
 
   const getStudentData = async () => {
+    setLoading(true);
     try {
       const response = await publicRequest.get('/getData/Items');
       setData(response.data);
     } catch (error) {
       console.log(error);
       toast('Error Fetching Data');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,7 +45,13 @@ const Home = () => {
       </header>
       <section className='w-full'>
         <div className='mx-auto max-w-4xl py-8'>
-          {data && <Table setShowModal={setShowModal} data={data} setSelectedItem={setSelectedItem} />}
+          {loading ? (
+            <div className='flex justify-center'>
+              <span className='loading loading-spinner loading-lg'></span>
+            </div>
+          ) : (
+            data && <Table setShowModal={setShowModal} data={data} setSelectedItem={setSelectedItem} />
+          )}
         </div>
       </section>
       <Modal showModal={showModal} setShowModal={setShowModal} selectedItem={selectedItem} />
