@@ -2,11 +2,11 @@ import axios from "axios";
 
 const baseURL = import.meta.env.VITE_BASE_URL;
 
-const user = JSON.parse(localStorage.getItem('user'))?.auth
-const currentUser = user && JSON.parse(user).currentUser;
-const TOKEN = currentUser?.token;
+// const user = JSON.parse(localStorage.getItem('user'))?.auth
+// const currentUser = user && JSON.parse(user).currentUser;
+// const TOKEN = currentUser?.token;
 
-console.log(TOKEN)
+// console.log(TOKEN)
 
 export const publicRequest = axios.create({
   baseURL: baseURL,
@@ -16,6 +16,6 @@ export const publicRequest = axios.create({
 export const userRequest = axios.create({
   baseURL: baseURL,
   headers: {
-    Authorization: `Bearer ${TOKEN}`,
+    // Authorization: `Bearer ${TOKEN}`,
   },
 });
