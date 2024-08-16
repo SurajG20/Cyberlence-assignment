@@ -10,6 +10,7 @@ console.log(TOKEN)
 
 export const publicRequest = axios.create({
   baseURL: baseURL,
+  headers: { 'Content-Type': 'application/json' },
 });
 
 export const userRequest = axios.create({
